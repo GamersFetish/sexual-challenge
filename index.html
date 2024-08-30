@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sexual Challenge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        img {
+            width: 50%;
+        }
+
+        #game {
+            margin: 0 auto;
+            max-width: 600px;
+            background: #333;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="text"] {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: calc(100% - 20px);
+            box-sizing: border-box;
+            background: #444;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 10px auto;
+            display: block;
+        }
+
+        button:hover {
+            background-color: #c2185b;
+        }
+
+        .secondary-button {
+            background-color: #D8D8D8;
+            color: #000000;
+        }
+
+        .secondary-button:hover {
+            background-color: #f8b3d0;
+            color: #000000;
+            border: 1px solid #e91e63;
+            box-shadow: 0 0 10px rgba(233, 30, 99, 0.5);
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            color: #fff;
+            margin: 0;
+        }
+
+        .player-group label {
+            justify-content: flex-start;
+        }
+
+        #challenge {
+            margin: 20px 0;
+            font-size: 24px;
+        }
+
+        #turn {
+            margin: 20px 0;
+            font-size: 20px;
+            color: #e91e63;
+        }
+
+        .player-group {
+            margin-bottom: 20px;
+        }
+
+        .player-group h3 {
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            color: #e91e63;
+            font-weight: bold;
+        }
+
+        #gameImage {
+            margin-bottom: 20px;
+        }
+
+        #gameImage img {
+            max-width: 100%;
+        }
+
+        #startGame {
+            font-size: 24px;
+            padding: 15px 30px;
+            margin-top: 20px;
+        }
+
+        #nextChallenge {
+            font-size: 20px;
+            padding: 15px 25px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        #individualChallenge,
+        #groupChallenge {
+            width: 100%;
+            max-width: 300px;
+            background-color: #D8D8D8;
+            color: #989898;
+        }
+
+        #confirmEndGame {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #333;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        #confirmEndGame button {
+            width: 50%;
+            margin: 5px 0;
+            display: inline-block;
+        }
+
+        .player-entry {
+            margin-bottom: 20px;
+        }
+
+        .input-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-wrapper input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            background: #444;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .input-wrapper label {
+            margin-top: 5px;
+            font-weight: normal;
+            color: #fff;
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 600px) {
+            #game {
+                width: 100%;
+                padding: 10px;
+            }
+
+            button {
+                width: 100%;
+                padding: 15px;
+                font-size: 18px;
+            }
+
+            input[type="text"] {
+                width: calc(100% - 20px);
+            }
+
+            .player-group {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .player-group>div {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+
+            label {
+                justify-content: flex-start;
+                width: 100%;
+            }
+        }
+
+        #endGame {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 16px;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="gameImage">
+        <img src="https://i.ibb.co/VQp1ZCx/Capa-1.png" alt="Logo Gamers">
+    </div>
+    <div id="game">
+        <h1>Sexual Challenge</h1>
+        <div id="setup">
+            <h2>Ingresa los nombres de los jugadores</h2>
+            <div id="players">
+                <div class="player-group" id="femalePlayers">
+                    <h3>Mujeres</h3>
+                    <div class="player-entry">
+                        <div class="input-wrapper">
+                            <input type="text" class="female" placeholder="Jugadora 1">
+                            <label><input type="checkbox" class="femaleSameSex"> Jugar con ambos sexos</label>
+                        </div>
+                    </div>
+                </div>
+                <button class="secondary-button" onclick="addPlayer('female')">Agregar más jugadoras</button>
+
+                <div class="player-group" id="malePlayers">
+                    <h3>Hombres</h3>
+                    <div class="player-entry">
+                        <div class="input-wrapper">
+                            <input type="text" class="male" placeholder="Jugador 1">
+                            <label><input type="checkbox" class="maleSameSex"> Jugar con ambos sexos</label>
+                        </div>
+                    </div>
+                </div>
+                <button class="secondary-button" onclick="addPlayer('male')">Agregar más jugadores</button>
+
+            </div>
+            <button id="startGame" onclick="startGame()">Iniciar el Juego</button>
+        </div>
+        <div id="gameplay" style="display: none;">
+            <h2 id="turn">Es el turno de:</h2>
+            <div id="challenge" style="display: none;"></div>
+            <div id="timer"></div>
+            <div id="challengeTypeSelection">
+                <p>¿Quieres reto individual o quieres jugar con otra persona?</p>
+                <button id="individualChallenge" class="secondary-button1">Reto individual</button>
+                <button id="groupChallenge" class="secondary-button1">Reto con otro participante</button>
+            </div>
+            <button id="nextChallenge" style="display: none;" onclick="nextTurn()">Siguiente Turno</button>
+            <div id="rounds"></div>
+        </div>
+        <div id="confirmEndGame">
+            <p>¿Estás seguro de que deseas abandonar la partida?</p>
+            <button onclick="confirmEndGame(true)">Sí</button>
+            <button onclick="confirmEndGame(false)">No</button>
+        </div>
+    </div>
+    <button id="endGame" style="display: none;" onclick="showEndGameConfirmation()">Finalizar Partida</button>
+
+    <script>
+        document.getElementById('startGame').addEventListener('click', startGame);
+        document.getElementById('individualChallenge').addEventListener('click', () => selectChallengeType('individual'));
+        document.getElementById('groupChallenge').addEventListener('click', () => selectChallengeType('group'));
+        document.getElementById('nextChallenge').addEventListener('click', nextTurn);
+
+        const maleChallenges = ['reto 1 hombre'];
+        const maleSoloChallenges = ['reto 1 solo hombres'];
+        const femaleChallenges = ['Reto 1 mujeres'];
+        const femaleSoloChallenges = ['reto 1 solo mujeres'];
+
+        let males = [];
+        let females = [];
+        let femaleSameSex = [];
+        let currentRound = 1;
+        const totalRounds = 20;
+        let currentTurn = 0;
+        let players = [];
+
+        function startGame() {
+            males = getPlayers('male');
+            females = getPlayers('female');
+            femaleSameSex = getFemaleSameSex();
+
+            if (males.length < 1 || females.length < 1) {
+                alert('Por favor, ingresa al menos un nombre en cada categoría.');
+                return;
+            }
+
+            players = [...males, ...females];
+            shuffle(players);
+
+            document.getElementById('setup').style.display = 'none';
+            document.getElementById('gameplay').style.display = 'block';
+            document.getElementById('endGame').style.display = 'block';
+
+            nextTurn();
+        }
+
+        function getPlayers(gender) {
+            const inputs = document.querySelectorAll(`.${gender}`);
+            return Array.from(inputs).map(input => input.value).filter(name => name.trim() !== '');
+        }
+
+        function getFemaleSameSex() {
+            const checkboxes = document.querySelectorAll('.femaleSameSex');
+            return Array.from(checkboxes).map(checkbox => checkbox.checked);
+        }
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function nextTurn() {
+            if (currentRound > totalRounds) {
+                endGame();
+                return;
+            }
+
+            currentTurn = (currentTurn + 1) % players.length;
+            document.getElementById('turn').innerText = `Es el turno de: ${players[currentTurn]}`;
+
+            document.getElementById('challenge').style.display = 'none';
+            document.getElementById('nextChallenge').style.display = 'none';
+            document.getElementById('challengeTypeSelection').style.display = 'block';
+        }
+
+        function selectChallengeType(type) {
+            document.getElementById('challengeTypeSelection').style.display = 'none';
+
+            let challenge;
+            if (type === 'individual') {
+                challenge = getIndividualChallenge(players[currentTurn]);
+            } else {
+                const otherPlayer = selectOtherPlayer();
+                if (!otherPlayer) {
+                    alert('No hay jugadores disponibles para jugar con otro participante.');
+                    nextTurn();  // Opcional: Manejo del caso donde no hay otros jugadores
+                    return;
+                }
+                challenge = getGroupChallenge(players[currentTurn], otherPlayer);
+            }
+
+            if (challenge) {
+                document.getElementById('challenge').innerText = challenge;
+                document.getElementById('challenge').style.display = 'block';
+                document.getElementById('nextChallenge').style.display = 'block';
+            } else {
+                alert('No se pudo asignar un reto.');
+                nextTurn();
+            }
+        }
+
+        function getIndividualChallenge(player) {
+            if (females.includes(player)) {
+                return femaleSoloChallenges[Math.floor(Math.random() * femaleSoloChallenges.length)];
+            } else {
+                return maleSoloChallenges[Math.floor(Math.random() * maleSoloChallenges.length)];
+            }
+        }
+
+        function getGroupChallenge(player, otherPlayer) {
+            if (females.includes(player)) {
+                if (females.includes(otherPlayer) && femaleSameSex[females.indexOf(player)]) {
+                    return `${femaleChallenges[Math.floor(Math.random() * femaleChallenges.length)]} ${otherPlayer}`;
+                } else if (males.includes(otherPlayer)) {
+                    return `${femaleChallenges[Math.floor(Math.random() * femaleChallenges.length)]} ${otherPlayer}`;
+                } else {
+                    return 'Elige otro jugador';
+                }
+            } else {
+                if (males.includes(otherPlayer)) {
+                    return `${maleChallenges[Math.floor(Math.random() * maleChallenges.length)]} ${otherPlayer}`;
+                } else {
+                    return 'Elige otro jugador';
+                }
+            }
+        }
+
+        function selectOtherPlayer() {
+            const availablePlayers = players.filter(player => player !== players[currentTurn]);
+            if (availablePlayers.length > 0) {
+                return availablePlayers[Math.floor(Math.random() * availablePlayers.length)];
+            }
+            return null;
+        }
+
+        function addPlayer(gender) {
+            const container = gender === 'female' ? document.getElementById('femalePlayers') : document.getElementById('malePlayers');
+            const playerCount = container.getElementsByTagName('input').length / 2 + 1; // Divide por 2 para contar solo inputs de jugadores
+
+            const div = document.createElement('div');
+            div.classList.add('player-entry');
+
+            div.innerHTML = `
+                <div class="input-wrapper">
+                    <input type="text" class="${gender}" placeholder="${gender === 'female' ? 'Jugadora' : 'Jugador'} ${playerCount}">
+                    <label><input type="checkbox" class="${gender}SameSex"> Jugar con ambos sexos</label>
+                </div>
+            `;
+
+            container.appendChild(div);
+        }
+
+        function showEndGameConfirmation() {
+            document.getElementById('confirmEndGame').style.display = 'block';
+        }
+
+        function confirmEndGame(confirm) {
+            if (confirm) {
+                endGame();
+            } else {
+                document.getElementById('confirmEndGame').style.display = 'none';
+            }
+        }
+
+        function endGame() {
+            document.getElementById('setup').style.display = 'block';
+            document.getElementById('gameplay').style.display = 'none';
+            document.getElementById('endGame').style.display = 'none';
+            document.getElementById('confirmEndGame').style.display = 'none';
+            currentRound = 1;
+            currentTurn = 0;
+        }
+    </script>
+</body>
+
+</html>
