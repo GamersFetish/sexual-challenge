@@ -11,7 +11,7 @@
             text-align: center;
             background-color: #000;
             color: #fff;
-            padding: 20px;
+            padding: 0px 10px 10px 10px;
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -77,6 +77,19 @@
             transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
         }
 
+        .secondary-button1 {
+            background-color: #D8D8D8;
+            color: #000000;
+        }
+
+        .secondary-button1:hover {
+            background-color: #f8b3d0;
+            color: #000000;
+            border: 1px solid #e91e63;
+            box-shadow: 0 0 10px rgba(233, 30, 99, 0.5);
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        }
+
         label {
             display: flex;
             align-items: center;
@@ -114,11 +127,12 @@
         }
 
         #gameImage {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+
         }
 
         #gameImage img {
-            max-width: 100%;
+            max-width: 80%;
         }
 
         #startGame {
@@ -188,6 +202,13 @@
             align-items: center;
         }
 
+        input[type="text"] {
+            width: 80%;
+            /* Ajusta el ancho de los inputs al 80% de su contenedor padre */
+            box-sizing: border-box;
+            /* Asegura que el padding y el border se incluyan en el ancho total */
+        }
+
         @media (max-width: 600px) {
             #game {
                 width: 100%;
@@ -232,6 +253,139 @@
             font-size: 16px;
             padding: 10px 20px;
         }
+
+/* Estilos para pantallas menores a 430px */
+@media (max-width: 430px) {
+    body {
+        padding-top: 10px;
+    }
+
+    #game {
+        padding: 15px;
+        width: calc(100% - 30px);
+    }
+
+    #gameImage img {
+        max-width: 90%;
+    }
+
+    .input-wrapper {
+        width: 90%; /* Ajusta el ancho de .input-wrapper */
+        margin: 0 auto; /* Centra el .input-wrapper horizontalmente */
+    }
+
+    input[type="text"] {
+        width: 100%; /* Asegura que los inputs ocupen todo el ancho de .input-wrapper */
+        padding: 12px; /* Ajusta el padding para mayor comodidad */
+        font-size: 16px; /* Aumenta el tamaño del texto */
+    }
+
+    button {
+        width: calc(100% - 20px); /* Aumenta el ancho de los botones */
+        padding: 15px 0;
+    }
+
+    #startGame,
+    #nextChallenge {
+        width: calc(100% - 20px); /* Aumenta el ancho de los botones */
+        padding: 15px 0;
+        font-size: 18px; /* Aumenta el tamaño del texto */
+    }
+
+    .player-group {
+        margin-bottom: 15px;
+    }
+}
+
+/* Estilos para pantallas menores a 414px */
+@media (max-width: 414px) {
+    body {
+        padding-top: 8px;
+    }
+
+    #game {
+        padding: 12px;
+        width: calc(100% - 25px);
+    }
+
+    #gameImage img {
+        max-width: 88%;
+    }
+
+    .input-wrapper {
+        width: 90%; /* Ajusta el ancho de .input-wrapper */
+        margin: 0 auto; /* Centra el .input-wrapper horizontalmente */
+    }
+
+    input[type="text"] {
+        width: 100%; /* Asegura que los inputs ocupen todo el ancho de .input-wrapper */
+        padding: 12px; /* Ajusta el padding para mayor comodidad */
+        font-size: 16px; /* Aumenta el tamaño del texto */
+    }
+
+    button {
+        width: calc(100% - 20px); /* Aumenta el ancho de los botones */
+        padding: 15px 0;
+    }
+
+    #startGame,
+    #nextChallenge {
+        width: calc(100% - 20px); /* Aumenta el ancho de los botones */
+        padding: 15px 0;
+        font-size: 18px; /* Aumenta el tamaño del texto */
+    }
+
+    .player-group {
+        margin-bottom: 18px;
+    }
+}
+
+/* Estilos para pantallas menores a 360px */
+@media (max-width: 360px) {
+    body {
+        padding-top: 5px;
+    }
+
+    #game {
+        padding: 10px;
+        width: calc(100% - 20px);
+    }
+
+    #gameImage img {
+        max-width: 85%;
+    }
+
+    .input-wrapper {
+        width: 90%; /* Ajusta el ancho de .input-wrapper */
+        margin: 0 auto; /* Centra el .input-wrapper horizontalmente */
+    }
+
+    input[type="text"] {
+        width: 100%; /* Asegura que los inputs ocupen todo el ancho de .input-wrapper */
+        padding: 12px; /* Ajusta el padding para mayor comodidad */
+        font-size: 16px; /* Aumenta el tamaño del texto */
+    }
+
+    button {
+        width: calc(100% - 20px); /* Aumenta el ancho de los botones */
+        padding: 15px 0;
+    }
+
+    #startGame,
+    #nextChallenge {
+        width: calc(100% - 20px); /* Aumenta el ancho de los botones */
+        padding: 15px 0;
+        font-size: 18px; /* Aumenta el tamaño del texto */
+    }
+
+    .player-group {
+        margin-bottom: 20px;
+    }
+}
+
+
+
+
     </style>
 </head>
 
@@ -274,9 +428,11 @@
             <div id="challenge" style="display: none;"></div>
             <div id="timer"></div>
             <div id="challengeTypeSelection">
-                <p>¿Quieres reto individual o quieres jugar con otra persona?</p>
-                <button id="individualChallenge" class="secondary-button1">Reto individual</button>
-                <button id="groupChallenge" class="secondary-button1">Reto con otro participante</button>
+                <p style="font-weight: bolder;">¿Quieres reto individual o quieres jugar con otra persona?</p>
+                <button id="individualChallenge" class="secondary-button"
+                    style="color: #000; margin-bottom: 20px; margin-top: 20px;">Reto individual</button>
+                <button id="groupChallenge" class="secondary-button " style=" color: #000;">Reto con otro
+                    participante</button>
             </div>
             <button id="nextChallenge" style="display: none;" onclick="nextTurn()">Siguiente Turno</button>
             <div id="rounds"></div>
@@ -295,10 +451,22 @@
         document.getElementById('groupChallenge').addEventListener('click', () => selectChallengeType('group'));
         document.getElementById('nextChallenge').addEventListener('click', nextTurn);
 
-        const maleChallenges = ['reto 1 hombre'];
-        const maleSoloChallenges = ['reto 1 solo hombres'];
-        const femaleChallenges = ['Reto 1 mujeres'];
-        const femaleSoloChallenges = ['reto 1 solo mujeres'];
+        const maleChallenges = [
+            'reto1',
+
+        ];
+        const maleSoloChallenges = [
+            'reto2',
+
+        ];
+        const femaleChallenges = [
+            'reto3',
+
+        ];
+        const femaleSoloChallenges = [
+            'reto4',
+
+        ];
 
         let males = [];
         let females = [];
